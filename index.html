@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=""stylesheet href="styles.css">
+    <script defar src="questions.js"></script>
+    <script defar src="script.js"></script> 
+    <title>Math Quiz</title>
+</head>
+<body>
+    
+    <div id='start screen' class='shown'>
+        <h1>Are you good at Math?</h1>
+        <p> How good is your Mathematical Skills? <br>
+            Let's test your skills and see how good you are. <br>
+            Wrong answers will penalize your score and time <br>
+            Good Luck! :)
+        </p>
+        <button class='start-btn'>Start Quiz</button>
+    </div>
+
+    <div id='container' class="hidden">
+        <div class="title" id="question">
+            <h2>Question</h2>
+            <div id="answers" class="answers-btn">
+            </div>
+        </div>
+        
+        <div class="timeclock">
+        <div id="timer">Time Remaining: <span id="countdown"></span></div>
+        <div id="feedback"></div>
+        <div id="status">Score: <span id="score"></span></div>
+        </div>
+
+    </div>
+
+    <div id="gameover" class=""hide">
+        <h1>Game Over</h1>
+        <p>Final Score: <span id="final"></span></p>
+
+        <p>
+             Enter Initials: <input type="text" id="name"/>
+             <button id="submit">Submit Score</button>
+        </p>
+    </div>
+
+</body>
+</html>
