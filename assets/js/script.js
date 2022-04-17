@@ -1,12 +1,10 @@
 // DOM Variables QS
-var classShow = document.querySelector(".shown")
+var classShown = document.querySelector(".shown")
 var classHidden = document.querySelector(".hidden")
 var classHide = document.querySelector(".hide")
-var timeEl = document.querySelector("#countdown")
-var startButton = document.querySelector(".start")
-var clickedGuess = document.querySelector(".choice-section")
+var startButton = document.querySelector("#start")
 var questionEl = document.querySelector(".question-section")
-var ulEl = document.querySelector("ul")
+var timeEl = document.querySelector("#countdown")
 
 // DOM Variables ElementsbyId
 
@@ -31,7 +29,7 @@ var playerIndex = 0;
 // Hidden to shown
 
 function goToHidden () {
-    classShow.setAttribute("class", "hidden")
+    classShown.setAttribute("class", "hidden")
 }
 
 function goToShow () {
@@ -52,15 +50,6 @@ function startTimer() {
     },1000);
 }
 
-// Start Quiz Functions
-
-function startGame() {
-    goToHidden();
-    goToShow();
-    startTimer();
-    getQuestion();
-}
-
 // Functions to GetQuestions
 
 function getQuestion() {
@@ -79,7 +68,7 @@ function getQuestion() {
         button.textContent = option;
 
         button.addEventListener("click", function(event) {
-            var selectedOption = event.target.textContent;
+            var selectedOption = event.targettarget.textContent;
             if (selectedOption === currentQuestion.answer) {
                 score += 1;
                 scoreEl.textContent = score;
@@ -96,7 +85,7 @@ function getQuestion() {
             questionListIndex++
 
             if (questionListIndex >= questionList.length) {
-                endGame();
+                gameOver();
             } else {
                 getQuestion();
             }
@@ -105,15 +94,22 @@ function getQuestion() {
     }
 }
 
+function startGame() {
+    goToHidden();
+    goToShow();
+    startTimer();
+    getQuestion();
+}
+
 // EndGame Functions
 
-function endGame() {
+function gameOver() {
     containerEl.setAttribute("class", "hidden")
     classHide.setAttribute("class", "shown");
 
     var finalscoreEl = document.getElementById("final");
 
-    finalscoreEl.textContent = finalScore;
+    finalscoreEl.textContent = gameOver;
 
 }
 
