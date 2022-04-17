@@ -55,6 +55,12 @@ body {
 
 }
 
+img {
+    max-width: 400px;
+    max-height: 200px;
+    display: flex;
+}
+
 ol {
     padding-left: 0px;
     max-height: 400px;

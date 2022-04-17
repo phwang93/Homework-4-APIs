@@ -9,6 +9,7 @@ var timeEl = document.querySelector("#countdown")
 // DOM Variables ElementsbyId
 
 var optionsEl = document.getElementById("options")
+var imageEl = document.getElementById("image")
 var scoreEl = document.getElementById("score")
 var responseEl = document.getElementById("response")
 var containerEl = document.getElementById("container")
@@ -56,8 +57,15 @@ function getQuestion() {
     var currentQuestion = questionList[questionListIndex];
 
     optionsEl.innerHTML = ""
+
+    imageEl.innerHTML = ""
     
     questionEl.textContent = currentQuestion.title;
+
+    var picture = currentQuestion.image;
+    var img = document.createElement("img")
+    img.setAttribute("src", picture);
+    imageEl.append(img)
 
     scoreEl.textContent = score;
 
