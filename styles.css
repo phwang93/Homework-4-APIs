@@ -12,7 +12,7 @@ body {
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background-color: azure;
+    background: azure;
     line-height: 1.5;
 }
 
@@ -71,4 +71,21 @@ body {
 .timeclock {
     display:flex;
     justify-content: space-between;
+}
+
+ol {
+    padding-left: 0px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+li {
+    padding: 5px;
+    list-style-type: decimal inside none;
+    text-align: left;
+}
+
+.wrapper {
+    margin: 100px auto 0 auto;
+    max-width: 600px;
 }
