@@ -4,8 +4,8 @@ var classHidden = document.querySelector(".hidden")
 var classHide = document.querySelector(".hide")
 var timeEl = document.querySelector("#countdown")
 var startButton = document.querySelector(".start")
+var clickedGuess = document.querySelector(".choice-section")
 var questionEl = document.querySelector(".question-section")
-var clickedWrong = document.querySelector(".choice-section")
 var ulEl = document.querySelector("ul")
 
 // DOM Variables ElementsbyId
@@ -20,12 +20,12 @@ var submitEl = document.getElementById("submit")
 
 // Player Variables
 
-var secondsLeft = 60;
+var secondsLeft = 100;
 var questionListIndex = 0;
 var score = 0;
 var name;
 var player = [];
-var finalscore;
+var finalScore;
 var playerIndex = 0;
 
 // Hidden to shown
@@ -47,7 +47,7 @@ function startTimer() {
 
         if (secondsLeft <= 0) {
             clearInterval(timerInterval)
-            endGame();
+            gameOver();
         }
     },1000);
 }
@@ -72,18 +72,19 @@ function getQuestion() {
 
     scoreEl.textContent = score;
 
-    var options = currentQuestion.opstions;
+    var options = currentQuestion.options;
     for (var i = 0; i < options.length; i++) {
         var option = options[i];
         var button = document.createElement("button");
         button.textContent = option;
 
-        button.addEventListener('click', function(event) {
-            var selectedAnswer = event.target.textContent;
-            if (selectedAnswer === currentQuestion.answer) {
+        button.addEventListener("click", function(event) {
+            var selectedOption = event.target.textContent;
+            if (selectedOption === currentQuestion.answer) {
                 score += 1;
                 scoreEl.textContent = score;
                 responseEl.textContent = "NICE!"
+
             } else {
                 secondsLeft -= 5;
                 timeEl.textContent = secondsLeft;
@@ -93,6 +94,7 @@ function getQuestion() {
             }
             
             questionListIndex++
+
             if (questionListIndex >= questionList.length) {
                 endGame();
             } else {
@@ -106,24 +108,24 @@ function getQuestion() {
 // EndGame Functions
 
 function endGame() {
-    containerEl.setAttribute('class', 'hidden')
-    classHide.setAttribute('class', 'show');
+    containerEl.setAttribute("class", "hidden")
+    classHide.setAttribute("class", "shown");
 
-    var finalscoreEl = document.getElementById('final');
+    var finalscoreEl = document.getElementById("final");
 
-    finalscoreEl.textContent = finalscore;
+    finalscoreEl.textContent = finalScore;
 
 }
 
 // Saving Finalscore functions
 
 function saveHighscore() {
-    var name = nameEl.ariaValueMax.trim();
+    var name = nameEl.value.trim();
 
     if (name !== "") {
         var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
-        var newScore ={
+        var newScore = {
             score: score,
             name: name
         };
@@ -135,10 +137,6 @@ function saveHighscore() {
     }
 }
 
-startButton.onclick = startGame;
-submitEl.onclick = saveHighscore;
-nameEl.onkeyup = checkForEnter;
-
 
 // Saving Highscore functions
 
@@ -148,31 +146,6 @@ function checkForEnter(event) {
     }
 }
 
-// Show Highscore Functions
-
-function displayHighscore() {
-    var highscores = JSON.parse(window.localStorage.getItem('highscores')) || [];
-    highscores.sort(function(a, b) {
-        return b.score - a.score;
-    });
-
-    highscores.forEach(function(score){
-        var liTag = document.createElement('li');
-        liTag.textContent = score.name + ": " + score.score;
-
-        var olEl = document.getElementById('highscores');
-        olEl.appendChild(liTag);
-    });
-}
-
-// Functions to Clear the Highscores
-
-function clearHighscores() {
-    window.localStorage.removeItem('highscores');
-    window.location.reload();
-}
-
-document.getElementById('clear').onclick = clearHighscores;
-
-displayHighscore();
-
+startButton.onclick = startGame;
+submitEl.onclick = saveHighscore;
+nameEl.onkeyup = checkForEnter;

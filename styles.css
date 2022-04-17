@@ -25,52 +25,33 @@ body {
     box-shadow: 0 0 10px 2px;
 } 
 
-#question {
-    font-size: 24px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    border: 1px solid midnightblue;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin: 10px;
-}
-
 .hide, .hidden {
     display: none;
 }
 
-.answers {
+.options > button {
     padding: 10px;
     margin: 20px 10px;
     width: 20%;
-    border-radius: 10px;
-}
-
-.btn {
-    border: 1px solid midnightblue, 100% 30%;
-    background-color:midnightblue;
     border-radius: 5px;
-    padding: 5px 10px;
-    margin: 10px;
     color: azure;
-    outline: none;
+    background-color: midnightblue;
 }
 
-.btn:hover {
+.start {
+    border-radius: 5px;
+    color: azure;
+    background-color: midnightblue;
+}
+
+.options:hover {
     border-color: black;
-}
-
-.btn-grid {
-    display:grid;
-    grid-template-columns: repeat(2,auto);
-    gap: 10px;
-    margin: 20px,0;
 }
 
 .timeclock {
     display:flex;
     justify-content: space-between;
+
 }
 
 ol {
