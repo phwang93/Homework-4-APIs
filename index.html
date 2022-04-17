@@ -11,7 +11,7 @@
 </head>
 <body>
     
-    <div id='start screen' class='shown'>
+    <div id='start-screen' class='shown'>
         <h1>Are you good at Math?</h1>
         <p> How good is your Mathematical Skills? <br>
             Let's test your skills and see how good you are. <br>
@@ -23,13 +23,8 @@
 
     <div id='container' class="hidden">
         <div class="title" id="question">
-            <h2>Question</h2>
-            <div id="answers" class="btn-grid">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
-            </div>
+            <h2 class="question-section">Question</h2>
+            <div id="options" class="options button"></div>
         </div>
         
         <div class="timeclock">
@@ -40,7 +35,7 @@
 
     </div>
 
-    <div id="gameover" class=""hide">
+    <div id="gameover" class="hide">
         <h1>Game Over</h1>
         <p>Final Score: <span id="final"></span></p>
 

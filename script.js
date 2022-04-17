@@ -1,60 +1,56 @@
 // DOM Variables QS
-var classShow = document.querySelector('.show')
-var classHidden = document.querySelector('.hidden')
-var classHide = document.querySelector('.hide')
-var timeEl = document.querySelector('#countdown')
-var startButton = document.querySelector('.start')
-var questionEl = document.querySelector('.question')
-var clickedWrong = document.querySelector('.choice-section')
-var ulEl = document.querySelector('ul')
+var classShow = document.querySelector(".shown")
+var classHidden = document.querySelector(".hidden")
+var classHide = document.querySelector(".hide")
+var timeEl = document.querySelector("#countdown")
+var startButton = document.querySelector(".start")
+var questionEl = document.querySelector(".question-section")
+var clickedWrong = document.querySelector(".choice-section")
+var ulEl = document.querySelector("ul")
 
 // DOM Variables ElementsbyId
 
-var answersEl = document.getElementById('answers')
-var scoreEl = document.getElementById('score')
-var responseEl = document.getElementById('response')
-var containerEl = document.getElementById('container')
-var nameEl = document.getElementById('name')
-var clearEl = document.getElementById('clear')
-var submitEl = document.getElementById('submit')
+var optionsEl = document.getElementById("options")
+var scoreEl = document.getElementById("score")
+var responseEl = document.getElementById("response")
+var containerEl = document.getElementById("container")
+var nameEl = document.getElementById("name")
+var clearEl = document.getElementById("clear")
+var submitEl = document.getElementById("submit")
 
 // Player Variables
 
-var secondsLeft = 60
-var questionListIndex = 0
-var score = 0
-var name
-var player = []
-var finalscore
-var playerIndex = 0
+var secondsLeft = 60;
+var questionListIndex = 0;
+var score = 0;
+var name;
+var player = [];
+var finalscore;
+var playerIndex = 0;
 
 // Hidden to shown
 
 function goToHidden () {
-    classShow.setAttribute('class','hidden')
+    classShow.setAttribute("class", "hidden")
 }
 
 function goToShow () {
-    classHidden.setAttribute('class', 'show')
+    classHidden.setAttribute("class", "shown")
 }
 
 // Timer Function
 
 function startTimer() {
     var timerInterval = setInterval(function(){
-        secondsLeft --;
+        secondsLeft--;
         timeEl.textContent = secondsLeft;
 
-        if(secondsLeft <=0) {
+        if (secondsLeft <= 0) {
             clearInterval(timerInterval)
             endGame();
         }
-    }, 1000);
+    },1000);
 }
-
-startButton.onclick = startGame;
-submitEl.onclick = saveHighscore;
-nameEl.onkeyup = checkForEnter;
 
 // Start Quiz Functions
 
@@ -70,17 +66,17 @@ function startGame() {
 function getQuestion() {
     var currentQuestion = questionList[questionListIndex];
 
-    answersEl.innerHTML = ""
+    optionsEl.innerHTML = ""
     
     questionEl.textContent = currentQuestion.title;
 
     scoreEl.textContent = score;
 
-    var answers = currentQuestion.answers;
-    for (var i = 0; i < answers.length; i++) {
-        var answer = answers[i];
+    var options = currentQuestion.opstions;
+    for (var i = 0; i < options.length; i++) {
+        var option = options[i];
         var button = document.createElement("button");
-        button.textContent = answer;
+        button.textContent = option;
 
         button.addEventListener('click', function(event) {
             var selectedAnswer = event.target.textContent;
@@ -93,7 +89,7 @@ function getQuestion() {
                 timeEl.textContent = secondsLeft;
                 score -= 1;
                 scoreEl.textContent = score;
-                responseEl.textContent = "DANG!"
+                responseEl.textContent = "NOPE!"
             }
             
             questionListIndex++
@@ -103,7 +99,7 @@ function getQuestion() {
                 getQuestion();
             }
         })
-        answersEl.append(button);
+        optionsEl.append(button);
     }
 }
 
@@ -138,6 +134,11 @@ function saveHighscore() {
         window.location.href = "highscores.html";
     }
 }
+
+startButton.onclick = startGame;
+submitEl.onclick = saveHighscore;
+nameEl.onkeyup = checkForEnter;
+
 
 // Saving Highscore functions
 
@@ -174,3 +175,4 @@ function clearHighscores() {
 document.getElementById('clear').onclick = clearHighscores;
 
 displayHighscore();
+
