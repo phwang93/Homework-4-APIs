@@ -18,7 +18,7 @@ var clearEl = document.getElementById("clear")
 var ulEl = document.querySelector("ul")
 
 // Game Variables
-var secondsLeft = 100;
+var secondsLeft = 60;
 var questionListIndex = 0;
 var score = 0;
 var initials;
@@ -43,7 +43,9 @@ function startTimer() {
 
     var timerInterval = setInterval(function() {
         secondsLeft--;
+
         timeEl.textContent = secondsLeft;
+
         if(secondsLeft <= 0) {
         clearInterval(timerInterval)
         endGame();
@@ -91,18 +93,18 @@ function getQuestion() {
             var selectedOption = event.target.textContent;
             if (selectedOption === currentQuestion.answer) {
                 
-                score += 10;
+                score += 5;
                 scoreEl.textContent = score; 
-                feedbackEl.textContent = "Correct!"
+                feedbackEl.textContent = "NICE!"
 
             } else {
                 
-                secondsLeft -=10;
+                secondsLeft -=5;
                 timeEl.textContent = secondsLeft;
                 
-                score -= 5;
+                score -= 1;
                 scoreEl.textContent = score;
-                feedbackEl.textContent = "Wrong!"
+                feedbackEl.textContent = "NOPE!"
             }
        
         questionListIndex++
@@ -141,13 +143,15 @@ function saveHighscore() {
    
     var initials = initialsEl.value.trim();
 
-    if (initials !== "") {
+    if (initials !== " ") {
         
         var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+
         var newScore = {
         score: score,
         initials: initials
         };
+
         highscores.push(newScore);
         window.localStorage.setItem("highscores", JSON.stringify(highscores));
        
@@ -157,6 +161,7 @@ function saveHighscore() {
 
 // Enter Key "click"
 function checkForEnter(event) {
+    
     if (event.key === "Enter") {
     saveHighscore();
     }
