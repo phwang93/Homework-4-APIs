@@ -2,7 +2,6 @@
     box-sizing: border-box;
     font-size: 32px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: lightcyan;
    
 }
 
@@ -19,6 +18,7 @@ body {
     line-height: 1.5;
     background-color: #63d471;
     background-image: linear-gradient(315deg, #63d471 0%, #233329 74%);
+    color: lightcyan;
     
 }
 
@@ -27,7 +27,8 @@ body {
     max-width: 80%;
     border-radius: 10px;
     border-color: 2px solid, darkgreen;
-    padding: 20px;    
+    padding: 20px; 
+    color: lightcyan;  
 }
 
 .hidden, 
@@ -39,15 +40,14 @@ body {
     padding: 2%;
     margin: 20px 10px;
     width: 20%;
-    cursor: pointer;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 20px;
     background-color: darkgreen;
+    color: lightcyan;
 
 }
 
 .start {
-    cursor: pointer;
     border-radius: 5px;
     background-color: darkgreen;
 }
@@ -76,8 +76,20 @@ margin: 100px auto 0 auto;
 max-width: 600px;
 }
 
+button {
+    border-radius: 10px;
+    font-size: 24px;
+    background-color: darkgreen;
+    font:azure ;
+    margin: 20px 10px;
+    border-radius: 10px;
+    padding: 15px;
+    color: lightcyan;
+}
+
+
 img { 
 max-width: 400px;
 max-height: 300px;
-
+border-radius: 10px;
 }

@@ -46,9 +46,14 @@ function startTimer() {
 
         timeEl.textContent = secondsLeft;
 
-        if(secondsLeft <= 0) {
+        if(secondsLeft == 0) {
         clearInterval(timerInterval)
         endGame();
+        }
+        
+        if(score <= 0) {
+            clearInterval(timerInterval)
+            endGame();
         }
     },1000);
 }
@@ -93,18 +98,18 @@ function getQuestion() {
             var selectedOption = event.target.textContent;
             if (selectedOption === currentQuestion.answer) {
                 
-                score += 5;
+                score += 10;
                 scoreEl.textContent = score; 
                 feedbackEl.textContent = "NICE!"
 
             } else {
                 
-                secondsLeft -=5;
+                secondsLeft -=8;
                 timeEl.textContent = secondsLeft;
                 
-                score -= 1;
+                score -= 5;
                 scoreEl.textContent = score;
-                feedbackEl.textContent = "NOPE!"
+                feedbackEl.textContent = "BOO!"
             }
        
         questionListIndex++
@@ -114,7 +119,6 @@ function getQuestion() {
         } else {
             getQuestion();
         }
-        
         })
     optionsEl.append(button);
     }
@@ -129,7 +133,6 @@ function endGame() {
     classHide.setAttribute("class", "show");
     
     var finalScore = score;  
-        
     
     var finalScoreEl = document.getElementById("finalScore")
    
@@ -143,7 +146,7 @@ function saveHighscore() {
    
     var initials = initialsEl.value.trim();
 
-    if (initials !== " ") {
+    if (initials !== "") {
         
         var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
