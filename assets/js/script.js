@@ -1,106 +1,58 @@
-// DOM Variables QS
-var classShown = document.querySelector(".shown")
+// DOM Variables using HTML
+
+var classShow = document.querySelector(".show")
 var classHidden = document.querySelector(".hidden")
 var classHide = document.querySelector(".hide")
-var startButton = document.querySelector("#start")
-var questionEl = document.querySelector(".question-section")
-var timeEl = document.querySelector("#countdown")
-
-// DOM Variables ElementsbyId
-
-var optionsEl = document.getElementById("options")
+var timeEl = document.querySelector("#timeRemaining")
+var startButton = document.querySelector(".start")
+var questionToAsk = document.querySelector(".question-section")
+var clickedGuess = document.querySelector(".choice-section")
+var optionsEl = document.getElementById("options");
 var imageEl = document.getElementById("image")
 var scoreEl = document.getElementById("score")
-var responseEl = document.getElementById("response")
+var feedbackEl = document.getElementById("feedback")
 var containerEl = document.getElementById("container")
-var nameEl = document.getElementById("name")
-var clearEl = document.getElementById("clear")
+var initialsEl = document.getElementById("initials");
 var submitEl = document.getElementById("submit")
+var clearEl = document.getElementById("clear")
+var ulEl = document.querySelector("ul")
 
-// Player Variables
-
+// Game Variables
 var secondsLeft = 100;
 var questionListIndex = 0;
 var score = 0;
-var name;
+var initials;
 var player = [];
 var finalScore;
 var playerIndex = 0;
 
-// Hidden to shown
 
+// Function from show > hidden
 function goToHidden () {
-    classShown.setAttribute("class", "hidden")
+    classShow.setAttribute("class", "hidden")
 }
 
+// Functions from hidden > show
 function goToShow () {
-    classHidden.setAttribute("class", "shown")
+    classHidden.setAttribute("class", "show")
 }
 
-// Timer Function
 
+// startTimer Function
 function startTimer() {
-    var timerInterval = setInterval(function(){
+
+    var timerInterval = setInterval(function() {
         secondsLeft--;
         timeEl.textContent = secondsLeft;
-
-        if (secondsLeft <= 0) {
-            clearInterval(timerInterval)
-            gameOver();
+        if(secondsLeft <= 0) {
+        clearInterval(timerInterval)
+        endGame();
         }
     },1000);
 }
 
-// Functions to GetQuestions
 
-function getQuestion() {
-    var currentQuestion = questionList[questionListIndex];
-
-    optionsEl.innerHTML = ""
-
-    imageEl.innerHTML = ""
-    
-    questionEl.textContent = currentQuestion.title;
-
-    var picture = currentQuestion.image;
-    var img = document.createElement("img")
-    img.setAttribute("src", picture);
-    imageEl.append(img)
-
-    scoreEl.textContent = score;
-
-    var options = currentQuestion.options;
-    for (var i = 0; i < options.length; i++) {
-        var option = options[i];
-        var button = document.createElement("button");
-        button.textContent = option;
-
-        button.addEventListener("click", function(event) {
-            var selectedOption = event.targettarget.textContent;
-            if (selectedOption === currentQuestion.answer) {
-                score += 1;
-                scoreEl.textContent = score;
-                responseEl.textContent = "NICE!"
-
-            } else {
-                secondsLeft -= 5;
-                timeEl.textContent = secondsLeft;
-                score -= 1;
-                scoreEl.textContent = score;
-                responseEl.textContent = "NOPE!"
-            }
-            
-            questionListIndex++
-
-            if (questionListIndex >= questionList.length) {
-                gameOver();
-            } else {
-                getQuestion();
-            }
-        })
-        optionsEl.append(button);
-    }
-}
+// Start Quiz Button after "click"
 
 function startGame() {
     goToHidden();
@@ -109,47 +61,108 @@ function startGame() {
     getQuestion();
 }
 
-// EndGame Functions
 
-function gameOver() {
+// Function for Questions + Answers + Img
+function getQuestion() {
+    var currentQuestion = questionList[questionListIndex];
+  
+    optionsEl.innerHTML = ""
+    
+    imageEl.innerHTML = ""
+   
+    questionToAsk.textContent = currentQuestion.title;
+   
+    var picture = currentQuestion.image;
+    var img = document.createElement("img")
+    img.setAttribute("src", picture);
+    imageEl.append(img)
+    
+    scoreEl.textContent = score;
+
+    // Options Function
+
+    var options = currentQuestion.options;
+    for (var i = 0; i < options.length; i++) {
+        var option = options[i];
+        var button = document.createElement("button");
+        button.textContent = option;
+        
+        button.addEventListener("click", function(event) {
+            var selectedOption = event.target.textContent;
+            if (selectedOption === currentQuestion.answer) {
+                
+                score += 10;
+                scoreEl.textContent = score; 
+                feedbackEl.textContent = "Correct!"
+
+            } else {
+                
+                secondsLeft -=10;
+                timeEl.textContent = secondsLeft;
+                
+                score -= 5;
+                scoreEl.textContent = score;
+                feedbackEl.textContent = "Wrong!"
+            }
+       
+        questionListIndex++
+       
+        if (questionListIndex >= questionList.length) {
+            endGame();
+        } else {
+            getQuestion();
+        }
+        
+        })
+    optionsEl.append(button);
+    }
+}
+
+
+// Function endGame
+function endGame() {
+    
     containerEl.setAttribute("class", "hidden")
-    classHide.setAttribute("class", "shown");
-
-    var finalscoreEl = document.getElementById("final");
-
-    finalscoreEl.textContent = gameOver;
+    
+    classHide.setAttribute("class", "show");
+    
+    var finalScore = score;  
+        
+    
+    var finalScoreEl = document.getElementById("finalScore")
+   
+    finalScoreEl.textContent = finalScore;
 
 }
 
-// Saving Finalscore functions
+// Scoring Functions
 
 function saveHighscore() {
-    var name = nameEl.value.trim();
+   
+    var initials = initialsEl.value.trim();
 
-    if (name !== "") {
-        var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
-
-        var newScore = {
-            score: score,
-            name: name
-        };
+    if (initials !== "") {
         
+        var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+        var newScore = {
+        score: score,
+        initials: initials
+        };
         highscores.push(newScore);
         window.localStorage.setItem("highscores", JSON.stringify(highscores));
-
+       
         window.location.href = "highscores.html";
     }
-}
+    }
 
-
-// Saving Highscore functions
-
+// Enter Key "click"
 function checkForEnter(event) {
     if (event.key === "Enter") {
-        saveHighscore();
+    saveHighscore();
     }
 }
 
+// "Clicks" Functions
 startButton.onclick = startGame;
 submitEl.onclick = saveHighscore;
-nameEl.onkeyup = checkForEnter;
+initialsEl.onkeyup = checkForEnter; 
