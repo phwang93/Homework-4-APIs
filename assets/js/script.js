@@ -18,7 +18,7 @@ var clearEl = document.getElementById("clear")
 var ulEl = document.querySelector("ul")
 
 // Game Variables
-var secondsLeft = 60;
+var secondsLeft = 45;
 var questionListIndex = 0;
 var score = 0;
 var initials;
@@ -46,15 +46,11 @@ function startTimer() {
 
         timeEl.textContent = secondsLeft;
 
-        if(secondsLeft == 0) {
+        if(secondsLeft <= 0) {
         clearInterval(timerInterval)
         endGame();
         }
-        
-        if(score <= 0) {
-            clearInterval(timerInterval)
-            endGame();
-        }
+
     },1000);
 }
 
@@ -98,16 +94,16 @@ function getQuestion() {
             var selectedOption = event.target.textContent;
             if (selectedOption === currentQuestion.answer) {
                 
-                score += 10;
+                score += 5;
                 scoreEl.textContent = score; 
                 feedbackEl.textContent = "NICE!"
 
             } else {
                 
-                secondsLeft -=8;
+                secondsLeft -=5;
                 timeEl.textContent = secondsLeft;
                 
-                score -= 5;
+                score -= 2;
                 scoreEl.textContent = score;
                 feedbackEl.textContent = "BOO!"
             }
